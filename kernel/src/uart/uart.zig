@@ -1,4 +1,4 @@
-const mem = @import("../mem/mem.zig");
+const mem = @import("../memory/mem.zig");
 
 const UART: *volatile u32 = @ptrFromInt(0x09000000);
 

@@ -1,4 +1,4 @@
-const mem = @import("../mem/mem.zig");
+const mem = @import("../memory/mem.zig");
 
 const TIMER: *volatile u32 = @ptrFromInt(0x09010000);
 

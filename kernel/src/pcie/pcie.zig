@@ -1,4 +1,4 @@
-const mem = @import("../mem/mem.zig");
+const mem = @import("../memory/mem.zig");
 const uart = @import("../uart/uart.zig");
 const rtl = @import("../runtimelib/runtimelib.zig");
 

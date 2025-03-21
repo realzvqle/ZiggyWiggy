@@ -1,5 +1,5 @@
 all:
-	aarch64-none-elf-as src/boot/boot.asm -o boot.o
+	aarch64-none-elf-as src/boot/boot.S -o boot.o
 	zig build
 clean:
 	rm -rf .zig-cache
