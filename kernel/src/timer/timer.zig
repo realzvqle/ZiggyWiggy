@@ -1,9 +1,9 @@
-const mmio = @import("../mmio/mmio.zig");
+const mem = @import("../mem/mem.zig");
 
 const TIMER: *volatile u32 = @ptrFromInt(0x09010000);
 
 pub fn read_counter() u32 {
-    return mmio.read(TIMER);
+    return mem.read(TIMER);
 }
 
 pub fn halt_system_temporarily_seconds(seconds: u32) void {
