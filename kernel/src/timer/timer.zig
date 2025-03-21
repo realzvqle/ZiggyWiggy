@@ -6,7 +6,7 @@ pub fn read_counter() u32 {
     return mmio.read(TIMER);
 }
 
-pub fn halt_system_for_a_second(seconds: u32) void {
+pub fn halt_system_temporarily_seconds(seconds: u32) void {
     const start_time = read_counter();
     const target_time = start_time + seconds;
     while (read_counter() < target_time) {
