@@ -1,5 +1,4 @@
 const std = @import("std");
-
 pub fn build(b: *std.Build) void {
     const target = b.resolveTargetQuery(.{
         .cpu_arch = .aarch64,
@@ -17,6 +16,7 @@ pub fn build(b: *std.Build) void {
     });
     exe.setLinkerScript(b.path("linker.ld"));
     exe.addObjectFile(b.path("boot.o"));
+    exe.addAssemblyFile(b.path("src/exception/exceptions.S"));
     b.installArtifact(exe);
 }
 
