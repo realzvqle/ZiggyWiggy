@@ -71,7 +71,3 @@ pub fn exception_handler(frame: *interrupt_frame) void {
         continue;
     }
 }
-
-pub fn panic(message: []const u8) void {
-    uart.uart_print(message);
-}

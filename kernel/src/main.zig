@@ -14,7 +14,7 @@ pub export fn _begin_exception_handler(frame: *ex.interrupt_frame) void {
 }
 
 pub export fn kernel_entry() void {
-    alloc.init_allocater(0x41000000, 100);
+    alloc.init_allocater(0x41000000, 2000);
     var i: u32 = 0;
     while (true) {
         // will error out, will fix this soon
