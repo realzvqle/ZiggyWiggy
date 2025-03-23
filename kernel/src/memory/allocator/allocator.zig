@@ -2,9 +2,11 @@ const mem = @import("../mem.zig");
 const uart = @import("../../uart/uart.zig");
 const rtl = @import("../../runtimelib/runtimelib.zig");
 const err = @import("../../misc/error.zig");
+
 // Memory Allocater
 // Kinda bad and doesn't work well, try to avoid this as much as possible =)
 
+// FLAGGED FOR REWRITING
 var start_address: u32 = undefined;
 var heapsize: u32 = undefined;
 const HEADER_SIZE: u32 = 8;
@@ -12,23 +14,22 @@ const HEADER_SIZE: u32 = 8;
 pub fn init_allocator(address: u32, size: u32) void {
     start_address = address;
     heapsize = size;
-    mem.write_to_memory(u32, size, address);
+    mem.write_to_memory(u32, 0, address);
     mem.write_to_memory(u32, 0, start_address + 4);
 }
 
 pub fn allocate_memory(size: u32) ?*u8 {
-    var addr = start_address;
+    var addr: u32 align(8) = start_address;
     while (addr < start_address + heapsize) {
-        const block_size = mem.read_memory(addr);
+        const block_size: u32 align(8) = mem.read_memory(addr);
         const is_free = mem.read_memory(addr + 4);
         if (is_free == 0 and (block_size >= size + HEADER_SIZE or block_size == 0)) {
-            //uart.uart_print("if it shere either its good or bad\n");
             mem.write_to_memory(u32, size + HEADER_SIZE, addr);
             mem.write_to_memory(u32, 1, addr + 4);
-            const allocmem: *u8 = @ptrFromInt(addr + HEADER_SIZE);
+            const allocmem: *u8 align(8) = @ptrFromInt(addr + HEADER_SIZE);
             return allocmem;
         }
-        addr = addr + 100;
+        addr += block_size;
     }
     uart.uart_print("OUT OF MEMORY\n");
     return null;

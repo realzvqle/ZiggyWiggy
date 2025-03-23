@@ -14,13 +14,13 @@ pub export fn _begin_exception_handler(frame: *ex.interrupt_frame) void {
 }
 
 pub export fn kernel_entry() void {
-    alloc.init_allocator(0x41000000, 2000);
+    alloc.init_allocator(0x41000000, 1000);
     var i: u32 = 0;
     while (true) {
         // will error out, will fix this soon
         const string = alloc.allocate_memory(1 + i) orelse err.sys_panic("failure to allocate memory\n");
         alloc.read_header_data(string);
-        alloc.free_memory(string);
+        //alloc.free_memory(string);
         //alloc.read_header_data(string);
         uart.uart_print("Allocated Memory...\n");
         time.halt_system_temporarily_seconds(1);
