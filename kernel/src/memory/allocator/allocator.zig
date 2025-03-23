@@ -9,7 +9,7 @@ var start_address: u32 = undefined;
 var heapsize: u32 = undefined;
 const HEADER_SIZE: u32 = 8;
 
-pub fn init_allocater(address: u32, size: u32) void {
+pub fn init_allocator(address: u32, size: u32) void {
     start_address = address;
     heapsize = size;
     mem.write_to_memory(u32, size, address);

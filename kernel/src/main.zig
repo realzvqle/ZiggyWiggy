@@ -4,7 +4,7 @@ const rtl = @import("runtimelib/runtimelib.zig");
 const ex = @import("exception/exceptionhandler.zig");
 const pcie = @import("pcie/pcie.zig");
 const mem = @import("memory/mem.zig");
-const alloc = @import("memory/allocater/allocater.zig");
+const alloc = @import("memory/allocator/allocator.zig");
 const err = @import("misc/error.zig");
 
 extern fn start_interrupts() void;
@@ -14,7 +14,7 @@ pub export fn _begin_exception_handler(frame: *ex.interrupt_frame) void {
 }
 
 pub export fn kernel_entry() void {
-    alloc.init_allocater(0x41000000, 2000);
+    alloc.init_allocator(0x41000000, 2000);
     var i: u32 = 0;
     while (true) {
         // will error out, will fix this soon
