@@ -36,8 +36,7 @@ fn print_register(name: []const u8, register: u64) void {
     uart.write_into_uart('\n');
 }
 
-fn dump_interrupt_frame(frame: *interrupt_frame) void {
-    uart.uart_print("\n\n!! EXCEPTION OCCURED !!\n\n");
+pub fn dump_interrupt_frame(frame: *interrupt_frame) void {
     print_register("x0", frame.x0);
     print_register("x1", frame.x1);
     print_register("x2", frame.x2);
@@ -66,8 +65,13 @@ fn dump_interrupt_frame(frame: *interrupt_frame) void {
 
 pub fn exception_handler(frame: *interrupt_frame) void {
     // will do more stuff here soon
+    uart.uart_print("\n\n!! EXCEPTION OCCURED !!\n\n");
     dump_interrupt_frame(frame);
     while (true) {
         continue;
     }
+}
+
+pub fn panic(message: []const u8) void {
+    uart.uart_print(message);
 }
