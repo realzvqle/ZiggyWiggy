@@ -18,12 +18,12 @@ pub fn build(b: *std.Build) void {
     exe.addObjectFile(b.path("boot.o"));
     exe.addAssemblyFile(b.path("src/exception/exceptions.S"));
     b.installArtifact(exe);
+    const lib = b.addStaticLibrary(.{
+        .name = "kernel",
+        .root_source_file = b.path("src/lib.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    lib.addAssemblyFile(b.path("src/exception/exceptions.S"));
+    b.installArtifact(lib);
 }
-
-// const lib = b.addStaticLibrary(.{
-//     .name = "kernel",
-//     .root_source_file = b.path("src/lib.zig"),
-//     .target = target,
-//     .optimize = optimize,
-// });
-// b.installArtifact(lib);
